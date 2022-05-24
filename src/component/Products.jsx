@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from "react";
-
-
+import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 const Products = () => {
-
     const [data, setData] = useState([]);
     const [filter, setFilter] = useState(data);
     const [loading, setLoading] = useState(false);
@@ -26,12 +26,21 @@ const Products = () => {
         getProducts();
     },[]);
 
-
-
-    const Loading = () => {
+        const Loading = () => {
         return (
             <>
-                Loading...
+            <div className='col-md-3'>
+                <Skeleton height={350}/>
+            </div>
+            <div className='col-md-3'>
+                <Skeleton height={350}/>
+            </div>
+            <div className='col-md-3'>
+                <Skeleton height={350}/>
+            </div>
+            <div className='col-md-3'>
+                <Skeleton height={350}/>
+            </div>
             </>
         )
     }
@@ -42,9 +51,9 @@ const Products = () => {
     }
 
     const ShowProducts = () => {
-        return(   
-        <>     
-            <div class="d-grid gap-2 d-md-flex justify-content-md-center pb-5">
+        return (   
+        <>  
+            <div className="buttons d-flex justify-content-center mb-5 pb-5">
                 <button class="fa btn btn-dark me-md-2" type="button" onClick={() => 
                 setFilter(data)}>All</button>
                 <button class="fa btn btn-dark me-md-2" type="button"
@@ -55,7 +64,7 @@ const Products = () => {
                 onClick={() => filterProduct('jewelery')}>Jewelery</button>
                 <button class="fa btn btn-dark me-md-2" type="button"
                 onClick={() => filterProduct('electronics')}>Electronics</button>
-            </div>
+            </div> 
             {filter.map((product) => {
                 return (
                     <>
@@ -69,14 +78,18 @@ const Products = () => {
                                     <p className="card-text lead fw-bold">
                                         ${product.price}
                                     </p>
-                                    <a href="#" className="fa btn btn-outline-dark">Buy Now</a>
+                                    <Link to={`/products/${product.id}`} class="fa btn btn-outline-dark">
+                                        Buy Now
+                                    </Link>
                                 </div>
-                        </div>
+                            </div>
                         </div>
                     </>
                 )
             })} 
         </>
+
+        
         )
     }
 
